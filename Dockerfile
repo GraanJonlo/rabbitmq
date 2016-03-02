@@ -22,16 +22,16 @@ RUN wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc |
     elixir=$ELIXIR_VERSION \
     rabbitmq-server=$RABBIT_VERSION
 
-RUN rabbitmq-plugins enable rabbitmq_management && \
-    /etc/init.d/rabbitmq-server stop
+RUN mkdir /etc/service/rabbitmq
+ADD rabbitmq.sh /etc/service/rabbitmq/run
+ADD rabbitmq.conf /etc/rabbitmq/rabbitmq.config
+
+RUN rabbitmq-plugins enable rabbitmq_management
 
 RUN rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/logs"]
 VOLUME ["/mnesia"]
-
-RUN mkdir /etc/service/rabbitmq
-ADD rabbitmq.sh /etc/service/rabbitmq/run
 
 EXPOSE 5672
 EXPOSE 15672
