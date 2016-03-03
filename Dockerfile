@@ -10,7 +10,6 @@ RUN echo "deb http://binaries.erlang-solutions.com/debian `lsb_release -cs` cont
 RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | tee /etc/apt/sources.list.d/rabbitmq.list
 
 ENV ERLANG_VERSION 18.2
-ENV ELIXIR_VERSION 1.2.3-1
 ENV RABBIT_VERSION 3.6.1-1
 
 RUN wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc | apt-key add - && \
@@ -19,19 +18,18 @@ RUN wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc |
     erlang-base-hipe=1:$ERLANG_VERSION \
     erlang-dev=1:$ERLANG_VERSION \
     erlang-nox=1:$ERLANG_VERSION \
-    elixir=$ELIXIR_VERSION \
     rabbitmq-server=$RABBIT_VERSION
 
 RUN mkdir /etc/service/rabbitmq
 ADD rabbitmq.sh /etc/service/rabbitmq/run
-ADD rabbitmq.conf /etc/rabbitmq/rabbitmq.config
+ADD rabbitmq.config /etc/rabbitmq/rabbitmq.config
 
 RUN rabbitmq-plugins enable rabbitmq_management
 
 RUN rm -rf /var/lib/apt/lists/*
 
-VOLUME ["/logs"]
-VOLUME ["/mnesia"]
+VOLUME ["/var/log/rabbitmq"]
+VOLUME ["/var/lib/rabbitmq/mnesia"]
 
 EXPOSE 5672
 EXPOSE 15672
