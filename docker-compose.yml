@@ -14,3 +14,4 @@ services:
     environment:
      - VM_MEMORY_HIGH_WATERMARK=4GB
      - DISK_FREE_LIMIT=2GB
+     - RABBITMQ_NODENAME=rabbit1

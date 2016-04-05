@@ -1,0 +1,7 @@
+[template]
+src = "rabbitmq.config.tmpl"
+dest = "/etc/rabbitmq/rabbitmq.config"
+keys = [
+    "VM_MEMORY_HIGH_WATERMARK",
+    "DISK_FREE_LIMIT",
+]
