@@ -1,0 +1,9 @@
+[
+  {rabbit,
+    [
+      {loopback_users, []},
+      {vm_memory_high_watermark, {absolute, "{{getenv "VM_HIGH_MEMORY_WATERMARK"}}"}},
+      {disk_free_limit, "{{getenv "DISK_FREE_LIMIT"}}"}
+    ]
+  }
+].

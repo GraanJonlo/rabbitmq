@@ -1,0 +1,16 @@
+version: '2'
+services:
+  rabbitmq:
+    image: graanjonlo/rabbitmq:3.6.1.2
+    ports:
+     - "5672:5672"
+     - "15672:15672"
+    expose:
+     - "5672"
+     - "15672"
+    volumes:
+     - "/home/andy/docker/data/rabbitmq:/var/lib/rabbitmq/mnesia"
+     - "/home/andy/docker/logs/rabbitmq:/var/log/rabbitmq"
+    environment:
+     - VM_MEMORY_HIGH_WATERMARK=4GB
+     - DISK_FREE_LIMIT=2GB

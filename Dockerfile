@@ -2,6 +2,9 @@ FROM phusion/baseimage:0.9.18
 
 MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+RUN chmod +x /usr/local/bin/confd
+
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     lsb-release \
     wget
@@ -22,7 +25,9 @@ RUN wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc |
 
 RUN mkdir /etc/service/rabbitmq
 ADD rabbitmq.sh /etc/service/rabbitmq/run
-ADD rabbitmq.config /etc/rabbitmq/rabbitmq.config
+
+ADD rabbitmq.toml /etc/confd/conf.d/rabbitmq.toml
+ADD rabbitmq.config.tmpl /etc/confd/templates/rabbitmq.config.tmpl
 
 RUN rabbitmq-plugins enable rabbitmq_management
 

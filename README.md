@@ -8,8 +8,4 @@ RabbitMQ is an open source message broker software (sometimes called message-ori
 
 # How to use this image
 
-## create and start a rabbit instance
-
-    docker run --name some-rabbit [-p 15672:15672] [-p 5672:5672] -d graanjonlo/rabbitmq:[tag]
-
-This image includes `EXPOSE 15672` and `EXPOSE 5672`, so standard container linking will make it automatically available to the linked containers. It also includes `VOLUME ["/var/log/rabbitmq"]` and `VOLUME ["/var/lib/rabbitmq/mnesia"]` so you can mount log and data volumes.
+See the supporting docker-compose.yml for an example configuration.
