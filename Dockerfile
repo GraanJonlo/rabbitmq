@@ -8,14 +8,13 @@ RUN chmod +x /usr/local/bin/confd
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
 RUN apt-get install -y \
-    lsb-release \
     wget
 
 RUN echo "deb http://binaries.erlang-solutions.com/debian `lsb_release -cs` contrib" | tee /etc/apt/sources.list.d/erlang-solutions.list
 RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | tee /etc/apt/sources.list.d/rabbitmq.list
 
-ENV ERLANG_VERSION 18.2
-ENV RABBIT_VERSION 3.6.2-1
+ENV ERLANG_VERSION 19.0-1
+ENV RABBIT_VERSION 3.6.3-1
 
 RUN wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc | apt-key add - && \
     wget -O - https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add - && \
