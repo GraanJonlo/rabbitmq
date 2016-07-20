@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.18
+FROM phusion/baseimage:0.9.19
 
 MAINTAINER Andy Grant <andy.a.grant@gmail.com>
 
@@ -10,18 +10,13 @@ RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 RUN apt-get install -y \
     wget
 
-RUN echo "deb http://binaries.erlang-solutions.com/debian `lsb_release -cs` contrib" | tee /etc/apt/sources.list.d/erlang-solutions.list
 RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | tee /etc/apt/sources.list.d/rabbitmq.list
 
-ENV ERLANG_VERSION 19.0-1
 ENV RABBIT_VERSION 3.6.3-1
 
 RUN wget -O - http://binaries.erlang-solutions.com/debian/erlang_solutions.asc | apt-key add - && \
     wget -O - https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add - && \
     apt-get update && apt-get install -y \
-    erlang-base-hipe=1:$ERLANG_VERSION \
-    erlang-dev=1:$ERLANG_VERSION \
-    erlang-nox=1:$ERLANG_VERSION \
     rabbitmq-server=$RABBIT_VERSION
 
 RUN rm -rf /var/lib/apt/lists/*
